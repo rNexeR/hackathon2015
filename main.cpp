@@ -40,10 +40,6 @@ ALLEGRO_SAMPLE_ID igame;
 
 ALLEGRO_KEYBOARD_STATE keystate;
 
-Lives* l = new Lives(20, 20, 100, 100);
-Coins* c = new Coins(40, 40, 300, 300);
-FloatingObs* o = new FloatingObs(60, 60, 400, 400);
-
 //ALLEGRO_
 
 struct Box{
@@ -174,10 +170,6 @@ int main()
 //    high->highs.insert(pair<int, string>(seconds, currentuser));
     ALLEGRO_EVENT ev;
     while(true){
-
-        c->showCoins();
-        l->showLives();
-        o->showFloatingObs();
 
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
 
