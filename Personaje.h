@@ -16,13 +16,19 @@
 
 using namespace std;
 
+enum TIPO {RED, GREEN, BLUE};
 
 class Personaje : public Entidad
 {
     public:
-        int vida;
-        vector<ALLEGRO_BITMAP*> skins;
+        int vida, tipoActual, frame, animacionActual;
+        vector<ALLEGRO_BITMAP*> skins[3];
         Personaje();
+        void keydown(int keycode, bool* variable);
+        void act();
+        void draw();
+        ALLEGRO_EVENT ev;
+        bool keyPressed[2];
         virtual ~Personaje();
     protected:
     private:

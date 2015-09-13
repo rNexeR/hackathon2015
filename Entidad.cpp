@@ -2,8 +2,8 @@
 
 Entidad::Entidad()
 {
-    colisionado;
-    tamano = new Box(0,0,0,0);
+    colisionado = 0;
+    cuadro = new Box(0,0,0,0);
     velocity = 1;
 }
 

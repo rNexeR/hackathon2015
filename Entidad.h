@@ -18,9 +18,9 @@ class Entidad
 {
     public:
         bool colisionado;
-        Box *tamano;// = new Box(0,0,0,0);
+        Box *cuadro;// = new Box(0,0,0,0);
         float velocity;// = 1;
-        virtual void act(ALLEGRO_EVENT* ev) = 0;
+        virtual void act() = 0;
         virtual void draw() = 0;
         Entidad();
         virtual ~Entidad();
