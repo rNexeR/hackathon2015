@@ -7,6 +7,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <Highscores.h>
 
 using namespace std;
 
@@ -33,7 +34,8 @@ ALLEGRO_SAMPLE_ID igame;
 
 ALLEGRO_FONT *normalFont = NULL;
 
-int width = 1280, height = 768, FPS = 60;
+int width = 1280, height = 768, FPS = 60, seconds=1, timer2=0;
+string currentuser="hola";
 
 int initAllegro()
 {
@@ -96,6 +98,8 @@ int initAllegro()
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
     al_register_event_source(event_queue, al_get_keyboard_event_source());//registrar eventos del teclado
 
+    al_start_timer(timer);
+
     al_init_timeout(&timeout, 0.06);
     return 0;
 }
@@ -103,7 +107,25 @@ int initAllegro()
 int main()
 {
     initAllegro();
+    Highscores *high=new Highscores();
+    high->highs.insert(pair<int, string>(seconds, currentuser));
     while(true){
+        ALLEGRO_EVENT ev;
+        al_wait_for_event(event_queue, &ev);
+
+        if(ev.type == ALLEGRO_EVENT_TIMER) {
+            timer2++;
+            if(timer2==60)
+            {
+                cout<<seconds++<<endl;
+                timer2=0;
+            }
+            if(timer2%2==0)
+            {
+
+            }
+        }
+
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
@@ -112,6 +134,8 @@ int main()
 
         al_clear_to_color(al_map_rgb(0,0,255));
         al_flip_display();
+
+
     }
     return 0;
 }
