@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1442115240 source:/home/rnexer/UNITEC/hackathon2015/main.cpp
+1442117196 source:/home/rnexer/UNITEC/hackathon2015/main.cpp
 	<iostream>
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
@@ -19,7 +19,11 @@
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
 
+<<<<<<< HEAD
 1442115692 source:/home/alejo/Documents/hackathon2015/main.cpp
+=======
+1442102989 source:/home/jonathan/Desktop/Hackathon/main.cpp
+>>>>>>> master
 	<iostream>
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
@@ -28,4 +32,16 @@
 	<allegro5/allegro_acodec.h>
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
+<<<<<<< HEAD
+=======
+	<Highscores.h>
+
+1442101424 /home/jonathan/Desktop/Hackathon/include/Highscores.h
+
+1442103139 source:/home/jonathan/Desktop/Hackathon/src/Highscores.cpp
+	<iostream>
+	"Highscores.h"
+	<map>
+	<utility>
+>>>>>>> master
 
