@@ -53,7 +53,7 @@ Box bitmapBox(1000, 1000, 0, 0);
 
 ALLEGRO_FONT *normalFont = NULL;
 
-int width = 1280, height = 768, FPS = 60, seconds=1, timer2=0, moveSpeed=5;
+int width = 1280, height = 768, FPS = 30, seconds=1, timer2=0, moveSpeed=5;
 string currentuser="hola";
 
 int initAllegro()
