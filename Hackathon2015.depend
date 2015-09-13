@@ -22,7 +22,7 @@
 1442102989 D
 	<Highscores.h>
 
-1442139887 source:/home/alejo/Documents/hackathon2015/main.cpp
+1442146372 source:/home/alejo/Documents/hackathon2015/main.cpp
 	<iostream>
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
@@ -33,6 +33,8 @@
 	<allegro5/allegro_ttf.h>
 	"coins.h"
 	"lives.h"
+	"obstaculos.h"
+	"FloatingObs.h"
 
 1442102989 source:/home/jonathan/Desktop/Hackathon/main.cpp
 

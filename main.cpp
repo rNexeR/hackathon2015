@@ -53,12 +53,14 @@ struct Box{
 };
 
 ALLEGRO_BITMAP* bitmap;
+ALLEGRO_BITMAP* nubes;
 Box bitmapBox(1000, 1000, 0, 0);
 
 ALLEGRO_FONT *normalFont = NULL;
 
-int width = 1280, height = 768, FPS = 30, seconds=1, timer2=0, moveSpeed=5;
+int width = 768, height = 1280, FPS = 30, seconds=1, timer2=0, moveSpeed=5,moveSpeedB1=1, moveSpeedB2=3;
 string currentuser="hola";
+        int bg1=0, bg2=0;
 
 int initAllegro()
 {
@@ -164,8 +166,11 @@ int main()
 {
     initAllegro();
     al_install_keyboard();
-//    A
+
     bitmap = al_load_bitmap("resources/blobs/blue1.png");
+    fondo = al_load_bitmap("resources/fondo-cielo.png");
+    nubes = al_load_bitmap("resources/nubes.png");
+
 //    Highscores *high=new Highscores();
 //    high->highs.insert(pair<int, string>(seconds, currentuser));
     ALLEGRO_EVENT ev;
@@ -202,7 +207,17 @@ int main()
         {
             break;
         }
-        al_clear_to_color(al_map_rgb(0,0,255));
+//        al_clear_to_color(al_map_rgb(0,0,255));
+        al_draw_bitmap(fondo, 0, bg1, 0);
+        al_draw_bitmap(fondo, 0, bg1+2560, 0);
+        al_draw_bitmap(nubes, 0, bg2, 0);
+        al_draw_bitmap(nubes, 0, bg2+2560, 0);
+        bg1-=moveSpeedB1;
+        bg2-=moveSpeedB2;
+        if(bg1<=-2560)
+            bg1=0;
+        if(bg2<=-2560)
+            bg2=0;
         al_draw_bitmap(bitmap, bitmapBox.x ,bitmapBox.y, 0);
         al_flip_display();
 
