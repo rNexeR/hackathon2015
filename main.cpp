@@ -7,7 +7,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
-#include <Highscores.h>
+//#include <Highscores.h>
 
 using namespace std;
 
@@ -34,6 +34,10 @@ ALLEGRO_SAMPLE_ID ieffect;
 ALLEGRO_SAMPLE *game = NULL;
 ALLEGRO_SAMPLE_ID igame;
 
+ALLEGRO_KEYBOARD_STATE keystate;
+
+//ALLEGRO_
+
 struct Box{
     Box(int w, int h, int x, int y){
         width = w;
@@ -49,7 +53,7 @@ Box bitmapBox(1000, 1000, 0, 0);
 
 ALLEGRO_FONT *normalFont = NULL;
 
-int width = 1280, height = 768, FPS = 60, seconds=1, timer2=0;
+int width = 1280, height = 768, FPS = 30, seconds=1, timer2=0, moveSpeed=5;
 string currentuser="hola";
 
 int initAllegro()
@@ -99,8 +103,8 @@ int initAllegro()
 
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
-//
-    normalFont = al_load_ttf_font("GameFiles/fonts/kenvector_future_thin.ttf",50,0 );
+    cout<<"Llego aki";
+    normalFont = al_load_ttf_font("PIXEL-LI.TTF",50,0 );
 //    cartoonFont = al_load_ttf_font("GameFiles/fonts/kenpixel_blocks.ttf",50,0 );
 //
 //    if (!normalFont || !cartoonFont)
@@ -155,15 +159,28 @@ int initAllegro()
 int main()
 {
     initAllegro();
-<<<<<<< HEAD
-    bitmap = al_load_bitmap("resources/characters/blueblob/down1.png");
-=======
-    Highscores *high=new Highscores();
-    high->highs.insert(pair<int, string>(seconds, currentuser));
->>>>>>> Jonathan
+    al_install_keyboard();
+//    A
+    bitmap = al_load_bitmap("resources/blobs/blue1.png");
+//    Highscores *high=new Highscores();
+//    high->highs.insert(pair<int, string>(seconds, currentuser));
+    ALLEGRO_EVENT ev;
     while(true){
-        ALLEGRO_EVENT ev;
-        al_wait_for_event(event_queue, &ev);
+
+        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+
+        if(get_event && ev.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+            if(ev.keyboard.keycode == ALLEGRO_KEY_LEFT)
+                bitmapBox.x -= moveSpeed;
+                if(ev.keyboard.keycode == ALLEGRO_KEY_RIGHT)
+                bitmapBox.x += moveSpeed;
+//            al_get_keyboard_state(&keystate);
+//            if(al_key_down(&keystate, ALLEGRO_KEY_LEFT))
+//                bitmapBox.x -= moveSpeed;
+//            if(al_key_down(&keystate, ALLEGRO_KEY_RIGHT))
+//                bitmapBox.x += moveSpeed;
+        }
 
         if(ev.type == ALLEGRO_EVENT_TIMER) {
             timer2++;
@@ -177,8 +194,6 @@ int main()
 
             }
         }
-
-        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
             break;
@@ -187,11 +202,6 @@ int main()
         al_draw_bitmap(bitmap, bitmapBox.x ,bitmapBox.y, 0);
         al_flip_display();
 
-<<<<<<< HEAD
-        bitmapBox.x++;
-=======
-
->>>>>>> Jonathan
     }
     return 0;
 }
