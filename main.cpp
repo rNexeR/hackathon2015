@@ -44,7 +44,7 @@ struct Box{
 };
 
 ALLEGRO_BITMAP* bitmap;
-Box bitmapBox(50, 50, 0, 0);
+Box bitmapBox(1000, 1000, 0, 0);
 
 ALLEGRO_FONT *normalFont = NULL;
 
