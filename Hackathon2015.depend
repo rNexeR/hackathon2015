@@ -62,3 +62,47 @@
 	<utility>
 	<iostream>
 
+1442127047 source:/home/segebre/Desktop/Hackaton2015/main.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+
+1442129445 source:/home/segebre/Desktop/Hackaton2015/Entidad.cpp
+	"Entidad.h"
+
+1442129615 /home/segebre/Desktop/Hackaton2015/Entidad.h
+	"Box.h"
+	<iostream>
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+
+1442127992 source:/home/segebre/Desktop/Hackaton2015/Box.cpp
+	"Box.h"
+
+1442127956 /home/segebre/Desktop/Hackaton2015/Box.h
+
+1442129773 source:/home/segebre/Desktop/Hackaton2015/Personaje.cpp
+	"Personaje.h"
+
+1442130122 /home/segebre/Desktop/Hackaton2015/Personaje.h
+	"Box.h"
+	"Entidad.h"
+	<iostream>
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+
