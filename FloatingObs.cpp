@@ -1,26 +1,16 @@
 #include "FloatingObs.h"
 #include "obstaculos.h"
+#include "Box.h"
 
-FloatingObs::FloatingObs(int w, int h, int x, int y)
+FloatingObs::FloatingObs()
 {
-    this->width = w;
-    this->height = h;
-    this->x = x;
-    this->y = y;
+    obstacle = al_load_bitmap("resources/obstacle.png");
+
+    cuadro->width = al_get_bitmap_width(obstacle);
+    cuadro->height = al_get_bitmap_height(obstacle);
 }
 
 FloatingObs::~FloatingObs()
 {
     //dtor
-}
-
-void FloatingObs::showFloatingObs()
-{
-    while(true)
-    {
-        obstacle = al_load_bitmap("resources/obstacle.png");
-        al_draw_bitmap(obstacle, 0, 0, 0);
-        al_flip_display();
-    }
-
 }

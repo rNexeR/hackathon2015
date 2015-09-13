@@ -2,7 +2,7 @@
 
 Obstaculos::Obstaculos()
 {
-    //ctor
+    ene = true;
 }
 
 Obstaculos::~Obstaculos()

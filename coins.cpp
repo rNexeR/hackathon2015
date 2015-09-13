@@ -1,25 +1,16 @@
 #include "coins.h"
 #include "obstaculos.h"
+#include "Box.h"
 
-Coins::Coins(int w, int h, int x, int y)
+Coins::Coins()
 {
-    this->width = w;
-    this->height = h;
-    this->x = x;
-    this->y = y;
+    coin = al_load_bitmap("resources/coin.png");
+
+    cuadro->width = al_get_bitmap_width(coin);
+    cuadro->height = al_get_bitmap_height(coin);
 }
 
 Coins::~Coins()
 {
     //dtor
-}
-
-void Coins::showCoins()
-{
-    while(true)
-    {
-        coin = al_load_bitmap("resources/coin.png");
-        al_draw_bitmap(coin, 0, 0, 0);
-        al_flip_display();
-    }
 }

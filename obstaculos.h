@@ -3,20 +3,16 @@
 #include <iostream>
 #include <allegro5/allegro.h>
 #include "allegro5/allegro_image.h"
+#include "Entidad.h"
 
 using namespace std;
 
-class Obstaculos// : public Entidad
+class Obstaculos : public Entidad
 {
     public:
-        ALLEGRO_DISPLAY *display = NULL;
-        ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-
-        ALLEGRO_EVENT ev;
-        ALLEGRO_TIMEOUT timeout;
-        ALLEGRO_TIMER *timer;
+        bool ene;
         Obstaculos();
-        void effect();
+        virtual void effect()=0;
         virtual ~Obstaculos();
     protected:
     private:

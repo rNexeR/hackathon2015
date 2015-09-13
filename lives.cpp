@@ -1,25 +1,17 @@
 #include "lives.h"
 #include "obstaculos.h"
+#include "Box.h"
 
-Lives::Lives(int w, int h, int x, int y)
+Lives::Lives()
 {
-    this->width = w;
-    this->height = h;
-    this->x = x;
-    this->y = y;
+    ene = false;
+    heart = al_load_bitmap("resources/heart.png");
+
+    cuadro->width = al_get_bitmap_width(heart);
+    cuadro->height = al_get_bitmap_height(heart);
 }
 
 Lives::~Lives()
 {
     //dtor
-}
-
-void Lives::showLives()
-{
-    while(true)
-    {
-        heart = al_load_bitmap("resources/heart.png");
-        al_draw_bitmap(heart, 0, 0, 0);
-        al_flip_display();
-    }
 }
