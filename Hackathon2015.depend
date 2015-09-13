@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1442117196 source:/home/rnexer/UNITEC/hackathon2015/main.cpp
+1442147025 source:/home/rnexer/UNITEC/hackathon2015/main.cpp
 	<iostream>
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
@@ -8,6 +8,8 @@
 	<allegro5/allegro_acodec.h>
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
+	"Entidad.h"
+	"Personaje.h"
 
 1442094410 source:/home/edgar/Desktop/folder/main.cpp
 	<iostream>
@@ -61,4 +63,85 @@
 	<map>
 	<utility>
 	<iostream>
+
+1442142728 source:/home/segebre/Desktop/Hackaton2015/main.cpp
+	<iostream>
+	"Personaje.h"
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+
+1442134080 source:/home/segebre/Desktop/Hackaton2015/Entidad.cpp
+	"Entidad.h"
+
+1442139159 /home/segebre/Desktop/Hackaton2015/Entidad.h
+	"Box.h"
+	<iostream>
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+
+1442127992 source:/home/segebre/Desktop/Hackaton2015/Box.cpp
+	"Box.h"
+
+1442127956 /home/segebre/Desktop/Hackaton2015/Box.h
+
+1442143966 source:/home/segebre/Desktop/Hackaton2015/Personaje.cpp
+	"Personaje.h"
+
+1442142611 /home/segebre/Desktop/Hackaton2015/Personaje.h
+	"Box.h"
+	"Entidad.h"
+	<iostream>
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+	<vector>
+
+1442145382 source:/home/rnexer/UNITEC/hackathon2015/Box.cpp
+	"Box.h"
+
+1442145382 /home/rnexer/UNITEC/hackathon2015/Box.h
+
+1442146661 source:/home/rnexer/UNITEC/hackathon2015/Entidad.cpp
+	"Entidad.h"
+
+1442146002 /home/rnexer/UNITEC/hackathon2015/Entidad.h
+	"Box.h"
+	<iostream>
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+
+1442147059 source:/home/rnexer/UNITEC/hackathon2015/Personaje.cpp
+	"Personaje.h"
+
+1442145964 /home/rnexer/UNITEC/hackathon2015/Personaje.h
+	"Box.h"
+	"Entidad.h"
+	<iostream>
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+	<vector>
 
