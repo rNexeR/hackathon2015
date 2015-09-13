@@ -11,6 +11,8 @@
 #include "coins.h"
 #include "lives.h"
 #include "obstaculos.h"
+#include "Entidad.h"
+#include "Personaje.h"
 #include "FloatingObs.h"
 
 using namespace std;
@@ -42,27 +44,16 @@ ALLEGRO_KEYBOARD_STATE keystate;
 
 //ALLEGRO_
 
-struct Box{
-    Box(int w, int h, int x, int y){
-        width = w;
-        height = h;
-        this->x = x;
-        this->y = y;
-    }
-    int width, height, x, y;
-};
-
-ALLEGRO_BITMAP* bitmap;
 ALLEGRO_BITMAP* nubes;
-Box bitmapBox(1000, 1000, 0, 0);
 
 ALLEGRO_FONT *normalFont = NULL;
+Entidad *personaje;
 
-int width = 768, height = 1280, FPS = 30, seconds=1, timer2=0, moveSpeed=5,moveSpeedB1=1, moveSpeedB2=3;
+
+
+int width = 768, height = 1000, FPS = 30, seconds=1, timer2=0, moveSpeed=5,moveSpeedB1=1, moveSpeedB2=3;
 string currentuser="hola";
-<<<<<<< HEAD
         int bg1=0, bg2=0;
-=======
 bool izq=false, der=false;
 
 void keydown(int keycode, bool* variable)
@@ -90,7 +81,6 @@ bool press(int keycode)
         return false;
     }
 }
->>>>>>> 9ff6a39be386a26343238ff793624837fc6d482b
 
 int initAllegro()
 {
@@ -195,14 +185,9 @@ int initAllegro()
 int main()
 {
     initAllegro();
-<<<<<<< HEAD
-    al_install_keyboard();
-
-=======
+    personaje = new Personaje(&ev);
 //    A
     cout<<"llrego alo"<<endl;
->>>>>>> 9ff6a39be386a26343238ff793624837fc6d482b
-    bitmap = al_load_bitmap("resources/blobs/blue1.png");
     fondo = al_load_bitmap("resources/fondo-cielo.png");
     nubes = al_load_bitmap("resources/nubes.png");
 
@@ -212,12 +197,6 @@ int main()
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
 
 //            al_get_keyboard_state(&keystate);
-            keydown(ALLEGRO_KEY_RIGHT, &der);
-            keydown(ALLEGRO_KEY_LEFT, &izq);
-            if(izq)
-                bitmapBox.x -= moveSpeed;
-            if(der)
-                bitmapBox.x += moveSpeed;
 
         if(ev.type == ALLEGRO_EVENT_TIMER) {
             timer2++;
@@ -240,13 +219,14 @@ int main()
         al_draw_bitmap(fondo, 0, bg1+2560, 0);
         al_draw_bitmap(nubes, 0, bg2, 0);
         al_draw_bitmap(nubes, 0, bg2+2560, 0);
+        personaje->act();
+        personaje->draw();
         bg1-=moveSpeedB1;
         bg2-=moveSpeedB2;
         if(bg1<=-2560)
             bg1=0;
         if(bg2<=-2560)
             bg2=0;
-        al_draw_bitmap(bitmap, bitmapBox.x ,bitmapBox.y, 0);
         al_flip_display();
 
     }
