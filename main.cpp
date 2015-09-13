@@ -33,6 +33,8 @@ ALLEGRO_SAMPLE_ID ieffect;
 ALLEGRO_SAMPLE *game = NULL;
 ALLEGRO_SAMPLE_ID igame;
 
+//ALLEGRO_
+
 struct Box{
     Box(int w, int h, int x, int y){
         width = w;
@@ -151,7 +153,10 @@ int initAllegro()
 int main()
 {
     initAllegro();
+    al_install_keyboard();
+//    A
     bitmap = al_load_bitmap("resources/characters/blueblob/down1.png");
+
     while(true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
