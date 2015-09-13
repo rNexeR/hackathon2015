@@ -32,6 +32,15 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Box.cpp" />
+		<Unit filename="Box.h" />
+		<Unit filename="Entidad.cpp" />
+		<Unit filename="Entidad.h" />
+		<Unit filename="FloatingObs.cpp" />
+		<Unit filename="FloatingObs.h" />
+		<Unit filename="KeypressEvent.h" />
+		<Unit filename="Personaje.cpp" />
+		<Unit filename="Personaje.h" />
 		<Unit filename="coins.cpp" />
 		<Unit filename="coins.h" />
 		<Unit filename="lives.cpp" />
