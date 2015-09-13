@@ -32,6 +32,10 @@ ALLEGRO_BITMAP  *logo   = NULL;
 ALLEGRO_BITMAP  *instru   = NULL;
 ALLEGRO_BITMAP  *fondo   = NULL;
 ALLEGRO_BITMAP  *pausa   = NULL;
+ALLEGRO_BITMAP  *splash   = NULL;
+ALLEGRO_BITMAP  *menu   = NULL;
+ALLEGRO_BITMAP  *btnplay   = NULL;
+ALLEGRO_BITMAP  *btnexit   = NULL;
 
 ALLEGRO_SAMPLE *music = NULL;
 ALLEGRO_SAMPLE_ID imusic;
@@ -54,7 +58,7 @@ Entidad *personaje;
 int width = 768, height = 1000, FPS = 30, seconds=1, timer2=0, moveSpeed=5,moveSpeedB1=1, moveSpeedB2=3;
 string currentuser="hola";
         int bg1=0, bg2=0;
-bool izq=false, der=false;
+bool izq=false, der=false, splash1=true, splash2= false;
 
 void keydown(int keycode, bool* variable)
 {
@@ -185,12 +189,18 @@ string ingresarNombre()
 int main()
 {
     initAllegro();
-    currentuser = ingresarNombre();
+
     personaje = new Personaje(&ev);
 //    A
     cout<<"llrego alo"<<endl;
     fondo = al_load_bitmap("resources/fondo-cielo.png");
     nubes = al_load_bitmap("resources/nubes.png");
+    splash = al_load_bitmap("resources/splash.png");
+    menu = al_load_bitmap("resources/menu.png");
+    btnplay = al_load_bitmap("resources/play.png");
+    btnexit = al_load_bitmap("resources/exit.png");
+
+
 
 //    Highscores *high=new Highscores();
 //    high->highs.insert(pair<int, string>(seconds, currentuser));
@@ -215,6 +225,27 @@ int main()
         {
             break;
         }
+        if(splash1 || splash2){
+            if(splash1){
+                al_draw_bitmap(splash, 0, 0, 100);
+                if(ev.keyboard.keycode == ALLEGRO_KEY_SPACE){
+                    splash1=false;
+                    splash2=true;
+                }
+            }
+            if(splash2){
+                al_draw_bitmap(menu, 0, 0 ,100);
+                al_draw_bitmap(btnplay, 190, 500, 100);
+                al_draw_bitmap(btnexit, 215, 650, 100);
+                if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER){
+                    currentuser = ingresarNombre();
+                    splash2=false;
+                }
+                else if(ev.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
+                    break;
+            }
+        }
+        else{
 //        al_clear_to_color(al_map_rgb(0,0,255));
         al_draw_bitmap(fondo, 0, bg1, 0);
         al_draw_bitmap(fondo, 0, bg1+2560, 0);
@@ -228,6 +259,7 @@ int main()
             bg1=0;
         if(bg2<=-2560)
             bg2=0;
+        }
         al_flip_display();
 
     }
