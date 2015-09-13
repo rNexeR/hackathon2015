@@ -34,15 +34,19 @@
 		</Compiler>
 		<Unit filename="Box.cpp" />
 		<Unit filename="Box.h" />
+		<Unit filename="Clean.cpp" />
+		<Unit filename="Clean.h" />
+		<Unit filename="Enemy.cpp" />
+		<Unit filename="Enemy.h" />
 		<Unit filename="Entidad.cpp" />
 		<Unit filename="Entidad.h" />
+		<Unit filename="FireBarrier.cpp" />
+		<Unit filename="FireBarrier.h" />
 		<Unit filename="FloatingObs.cpp" />
 		<Unit filename="FloatingObs.h" />
 		<Unit filename="KeypressEvent.h" />
 		<Unit filename="Personaje.cpp" />
 		<Unit filename="Personaje.h" />
-		<Unit filename="coins.cpp" />
-		<Unit filename="coins.h" />
 		<Unit filename="lives.cpp" />
 		<Unit filename="lives.h" />
 		<Unit filename="main.cpp" />

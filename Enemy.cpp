@@ -9,8 +9,11 @@ Enemy::Enemy()
 {
     enemy = al_load_bitmap("resources/enemy.png");
     velo = 3;
+
     cuadro->width = al_get_bitmap_width(enemy);
     cuadro->height = al_get_bitmap_height(enemy);
+
+    cuadro->x = rand()%(720 - cuadro->width);
 
 
 
@@ -25,7 +28,8 @@ Enemy::Enemy()
 
 void Enemy :: act()
 {
-    cuadro->y--;
+    cout<<cuadro->x<<" , "<<cuadro->y<<endl;
+    cuadro->y-=5;
     cuadro->x+=velo;
     if(cuadro->x >= 768-cuadro->width)
         velo = -3;

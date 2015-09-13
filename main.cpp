@@ -14,6 +14,7 @@
 #include "Entidad.h"
 #include "Personaje.h"
 #include "FloatingObs.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -51,13 +52,13 @@ ALLEGRO_KEYBOARD_STATE keystate;
 ALLEGRO_BITMAP* nubes;
 
 ALLEGRO_FONT *normalFont = NULL;
-Entidad *personaje;
+//Entidad *personaje;
 
 
 
 int width = 768, height = 1000, FPS = 30, seconds=1, timer2=0, moveSpeed=5,moveSpeedB1=1, moveSpeedB2=3;
 string currentuser="hola";
-        int bg1=0, bg2=0;
+int bg1=0, bg2=0;
 bool izq=false, der=false, splash1=true, splash2= false;
 
 void keydown(int keycode, bool* variable)
@@ -67,7 +68,7 @@ void keydown(int keycode, bool* variable)
         if(ev.keyboard.keycode == keycode)
             *variable=true;
     }
-        if(ev.type == ALLEGRO_EVENT_KEY_UP)
+    if(ev.type == ALLEGRO_EVENT_KEY_UP)
     {
         if(ev.keyboard.keycode == keycode)
             *variable=false;
@@ -186,11 +187,13 @@ string ingresarNombre()
     return name;
 }
 
+
+
 int main()
 {
     initAllegro();
 
-    personaje = new Personaje(&ev);
+    //personaje = new Personaje(&ev);
 //    A
     cout<<"llrego alo"<<endl;
     fondo = al_load_bitmap("resources/fondo-cielo.png");
@@ -200,16 +203,38 @@ int main()
     btnplay = al_load_bitmap("resources/play.png");
     btnexit = al_load_bitmap("resources/exit.png");
 
+    vector<Entidad* > patitos;
+    patitos.insert(patitos.begin(), new Personaje(&ev));
+    int cant = 5;
+    for(int i = 0; i < cant; i++)
+    {
+        int randy = 1;
+
+        switch (randy)
+        {
+        case 1:
+            patitos.insert(patitos.begin(), new Enemy());
+            (*(patitos.begin()))->cuadro->y= 1280 + (i*rand()%300);
+
+//                  case 2:
+//
+//                  case 3:
+            break;
+
+        }
+    }
 
 
 //    Highscores *high=new Highscores();
 //    high->highs.insert(pair<int, string>(seconds, currentuser));
-    while(true){
+    while(true)
+    {
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
 
 //            al_get_keyboard_state(&keystate);
 
-        if(ev.type == ALLEGRO_EVENT_TIMER) {
+        if(ev.type == ALLEGRO_EVENT_TIMER)
+        {
             timer2++;
             if(timer2==60)
             {
@@ -225,19 +250,24 @@ int main()
         {
             break;
         }
-        if(splash1 || splash2){
-            if(splash1){
+        if(splash1 || splash2)
+        {
+            if(splash1)
+            {
                 al_draw_bitmap(splash, 0, 0, 100);
-                if(ev.keyboard.keycode == ALLEGRO_KEY_SPACE){
+                if(ev.keyboard.keycode == ALLEGRO_KEY_SPACE)
+                {
                     splash1=false;
                     splash2=true;
                 }
             }
-            if(splash2){
+            if(splash2)
+            {
                 al_draw_bitmap(menu, 0, 0 ,100);
                 al_draw_bitmap(btnplay, 190, 500, 100);
                 al_draw_bitmap(btnexit, 215, 650, 100);
-                if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER){
+                if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER)
+                {
                     currentuser = ingresarNombre();
                     splash2=false;
                 }
@@ -245,21 +275,45 @@ int main()
                     break;
             }
         }
-        else{
+        else
+        {
+
+//            cant = 0;
+
 //        al_clear_to_color(al_map_rgb(0,0,255));
-        al_draw_bitmap(fondo, 0, bg1, 0);
-        al_draw_bitmap(fondo, 0, bg1+2560, 0);
-        al_draw_bitmap(nubes, 0, bg2, 0);
-        al_draw_bitmap(nubes, 0, bg2+2560, 0);
-        personaje->act();
-        personaje->draw();
-        bg1-=moveSpeedB1;
-        bg2-=moveSpeedB2;
-        if(bg1<=-2560)
-            bg1=0;
-        if(bg2<=-2560)
-            bg2=0;
+            al_draw_bitmap(fondo, 0, bg1, 0);
+            al_draw_bitmap(fondo, 0, bg1+2560, 0);
+            al_draw_bitmap(nubes, 0, bg2, 0);
+            al_draw_bitmap(nubes, 0, bg2+2560, 0);
+
+            vector<vector<Entidad*>::iterator> borrar;
+
+            for(vector<Entidad*>::iterator i = patitos.begin(); i != patitos.end(); i++)
+            {
+                (*i)->act();
+                (*i)->draw();
+
+                if((*i)->cuadro->y < -100)
+                    borrar.push_back(i);
+
+            }
+
+            for(int x = 0; x < borrar.size(); x++){
+                patitos.erase(borrar[x]);
+            }
+
+//        personaje->act();
+//        personaje->draw();
+            bg1-=moveSpeedB1;
+            bg2-=moveSpeedB2;
+            if(bg1<=-2560)
+                bg1=0;
+            if(bg2<=-2560)
+                bg2=0;
         }
+
+
+
         al_flip_display();
 
     }

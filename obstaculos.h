@@ -12,7 +12,6 @@ class Obstaculos : public Entidad
     public:
         bool ene;
         Obstaculos();
-        virtual void effect()=0;
         virtual ~Obstaculos();
     protected:
     private:
