@@ -17,6 +17,10 @@ using namespace std;
 class Entidad
 {
     public:
+        ALLEGRO_EVENT *ev;
+        ALLEGRO_TIMEOUT timeout;
+        ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+        ALLEGRO_DISPLAY *display;
         bool colisionado;
         Box *cuadro;// = new Box(0,0,0,0);
         float velocity;// = 1;

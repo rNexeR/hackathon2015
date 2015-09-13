@@ -23,11 +23,10 @@ class Personaje : public Entidad
     public:
         int vida, tipoActual, frame, animacionActual;
         vector<ALLEGRO_BITMAP*> skins[3];
-        Personaje();
+        Personaje(ALLEGRO_EVENT *ev);
         void keydown(int keycode, bool* variable);
         void act();
         void draw();
-        ALLEGRO_EVENT ev;
         bool keyPressed[2];
         virtual ~Personaje();
     protected:
