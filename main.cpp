@@ -130,14 +130,14 @@ int initAllegro()
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
     cout<<"Llego aki";
-//    normalFont = al_load_ttf_font("PIXEL-LI.TTF",50,0 );
+    normalFont = al_load_ttf_font("PIXEL-LI.TTF",50,0 );
 //    cartoonFont = al_load_ttf_font("GameFiles/fonts/kenpixel_blocks.ttf",50,0 );
-//
-//    if (!normalFont || !cartoonFont)
-//    {
-//        cout<<"Failed to initialize the font"<<endl;
-//        return -1;
-//    }
+
+    if (!normalFont /*|| !cartoonFont*/)
+    {
+        cout<<"Failed to initialize the font"<<endl;
+        return -1;
+    }
 
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
@@ -148,43 +148,44 @@ int initAllegro()
     al_init_timeout(&timeout, 0.06);
 }
 
-//string ingresarNombre()
-//{
-//    string name = "";
-//    while(1)
-//    {
-//        al_clear_to_color(al_map_rgb(0,0,0));
-//        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-//        if(get_event && ev.type == ALLEGRO_EVENT_KEY_DOWN)
-//        {
-//            if (teclaDownEvent(ALLEGRO_KEY_ESCAPE) || teclaDownEvent(ALLEGRO_KEY_ENTER))
-//                break;
-//            for(int x = 1; x <= 27; x++)//for para obtener los valores de todas las letras
-//                if (teclaDownEvent(x))//comparamos que tecla está siendo presionada
-//                {
-//                    char e = x+64; //de ser así, sumarle al valor ASCII equivalente
-//                    name.push_back(e);//concatenarla al nombre
-//                }
-//
-//            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE) && name.size()>0)//comprar si vamos a borrar una letra
-//            {
-//                string temp = name;
-//                name = "";
-//                for(int x = 0; x<temp.size()-1; x++)
-//                    name+=temp[x];
-//            }
-//        }
+string ingresarNombre()
+{
+    string name = "";
+    while(1)
+    {
+        al_clear_to_color(al_map_rgb(0,0,0));
+        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+        if(get_event && ev.type == ALLEGRO_EVENT_KEY_DOWN)
+        {
+            if (press(ALLEGRO_KEY_ESCAPE) || press(ALLEGRO_KEY_ENTER))
+                break;
+            for(int x = 1; x <= 27; x++)//for para obtener los valores de todas las letras
+                if (press(x))//comparamos que tecla está siendo presionada
+                {
+                    char e = x+64; //de ser así, sumarle al valor ASCII equivalente
+                    name.push_back(e);//concatenarla al nombre
+                }
+
+            if (press(ALLEGRO_KEY_BACKSPACE) && name.size()>0)//comprar si vamos a borrar una letra
+            {
+                string temp = name;
+                name = "";
+                for(int x = 0; x<temp.size()-1; x++)
+                    name+=temp[x];
+            }
+        }
 //        al_draw_bitmap(fondo,0,0,0);
-//        al_draw_text(normalFont, al_map_rgb(102,204,0), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "INGRESE SU NOMBRE:");
-//        al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());//dibuja el nombre
-//        al_flip_display();//necesario para cambiar a la siguiente parte del buffer (que dibujará)
-//    }
-//    return name;
-//}
+        al_draw_text(normalFont, al_map_rgb(102,204,0), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "INGRESE SU NOMBRE:");
+        al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());//dibuja el nombre
+        al_flip_display();//necesario para cambiar a la siguiente parte del buffer (que dibujará)
+    }
+    return name;
+}
 
 int main()
 {
     initAllegro();
+    currentuser = ingresarNombre();
     personaje = new Personaje(&ev);
 //    A
     cout<<"llrego alo"<<endl;
