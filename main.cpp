@@ -60,7 +60,37 @@ ALLEGRO_FONT *normalFont = NULL;
 
 int width = 768, height = 1280, FPS = 30, seconds=1, timer2=0, moveSpeed=5,moveSpeedB1=1, moveSpeedB2=3;
 string currentuser="hola";
+<<<<<<< HEAD
         int bg1=0, bg2=0;
+=======
+bool izq=false, der=false;
+
+void keydown(int keycode, bool* variable)
+{
+    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
+    {
+        if(ev.keyboard.keycode == keycode)
+            *variable=true;
+    }
+        if(ev.type == ALLEGRO_EVENT_KEY_UP)
+    {
+        if(ev.keyboard.keycode == keycode)
+            *variable=false;
+    }
+}
+
+bool press(int keycode)
+{
+    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
+    {
+        if(ev.keyboard.keycode==keycode)
+        {
+            return true;
+        }
+        return false;
+    }
+}
+>>>>>>> 9ff6a39be386a26343238ff793624837fc6d482b
 
 int initAllegro()
 {
@@ -110,7 +140,7 @@ int initAllegro()
     al_init_font_addon(); // initialize the font addon
     al_init_ttf_addon();// initialize the ttf (True Type Font) addon
     cout<<"Llego aki";
-    normalFont = al_load_ttf_font("PIXEL-LI.TTF",50,0 );
+//    normalFont = al_load_ttf_font("PIXEL-LI.TTF",50,0 );
 //    cartoonFont = al_load_ttf_font("GameFiles/fonts/kenpixel_blocks.ttf",50,0 );
 //
 //    if (!normalFont || !cartoonFont)
@@ -165,31 +195,29 @@ int initAllegro()
 int main()
 {
     initAllegro();
+<<<<<<< HEAD
     al_install_keyboard();
 
+=======
+//    A
+    cout<<"llrego alo"<<endl;
+>>>>>>> 9ff6a39be386a26343238ff793624837fc6d482b
     bitmap = al_load_bitmap("resources/blobs/blue1.png");
     fondo = al_load_bitmap("resources/fondo-cielo.png");
     nubes = al_load_bitmap("resources/nubes.png");
 
 //    Highscores *high=new Highscores();
 //    high->highs.insert(pair<int, string>(seconds, currentuser));
-    ALLEGRO_EVENT ev;
     while(true){
-
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
 
-        if(get_event && ev.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            if(ev.keyboard.keycode == ALLEGRO_KEY_LEFT)
-                bitmapBox.x -= moveSpeed;
-                if(ev.keyboard.keycode == ALLEGRO_KEY_RIGHT)
-                bitmapBox.x += moveSpeed;
 //            al_get_keyboard_state(&keystate);
-//            if(al_key_down(&keystate, ALLEGRO_KEY_LEFT))
-//                bitmapBox.x -= moveSpeed;
-//            if(al_key_down(&keystate, ALLEGRO_KEY_RIGHT))
-//                bitmapBox.x += moveSpeed;
-        }
+            keydown(ALLEGRO_KEY_RIGHT, &der);
+            keydown(ALLEGRO_KEY_LEFT, &izq);
+            if(izq)
+                bitmapBox.x -= moveSpeed;
+            if(der)
+                bitmapBox.x += moveSpeed;
 
         if(ev.type == ALLEGRO_EVENT_TIMER) {
             timer2++;
