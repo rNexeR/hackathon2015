@@ -1,5 +1,7 @@
 # Compiled Object files
-bin/
+bin/*.*
+*.depend
+*.layout
 *.slo
 *.lo
 *.o
