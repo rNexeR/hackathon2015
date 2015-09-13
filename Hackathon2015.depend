@@ -1,5 +1,15 @@
 # depslib dependency file v1.0
-1442093986 source:/home/rnexer/UNITEC/hackathon2015/main.cpp
+1442115240 source:/home/rnexer/UNITEC/hackathon2015/main.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+
+1442094410 source:/home/edgar/Desktop/folder/main.cpp
 	<iostream>
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
