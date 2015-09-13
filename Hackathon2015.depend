@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1442094287 source:/home/rnexer/UNITEC/hackathon2015/main.cpp
+1442115240 source:/home/rnexer/UNITEC/hackathon2015/main.cpp
 	<iostream>
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"

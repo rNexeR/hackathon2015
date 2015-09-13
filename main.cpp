@@ -12,8 +12,8 @@ using namespace std;
 
 ALLEGRO_DISPLAY *display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
-ALLEGRO_MAP *mapa = al_open_map("/tmx", "lab.tmx");
-al_draw_map(mapa, 0, 0, 0); // (map, dx, dy, flags)
+//ALLEGRO_MAP *mapa = al_open_map("/tmx", "lab.tmx");
+//al_draw_map(mapa, 0, 0, 0); // (map, dx, dy, flags)
 
 //EVENTOS Y TIMERS
 ALLEGRO_EVENT ev;
@@ -32,6 +32,19 @@ ALLEGRO_SAMPLE *effect = NULL;
 ALLEGRO_SAMPLE_ID ieffect;
 ALLEGRO_SAMPLE *game = NULL;
 ALLEGRO_SAMPLE_ID igame;
+
+struct Box{
+    Box(int w, int h, int x, int y){
+        width = w;
+        height = h;
+        this->x = x;
+        this->y = y;
+    }
+    int width, height, x, y;
+};
+
+ALLEGRO_BITMAP* bitmap;
+Box bitmapBox(50, 50, 0, 0);
 
 ALLEGRO_FONT *normalFont = NULL;
 
@@ -82,10 +95,10 @@ int initAllegro()
         cout<<"failed to initialize Audio!"<<endl;
     }
 
-//    al_init_font_addon(); // initialize the font addon
-//    al_init_ttf_addon();// initialize the ttf (True Type Font) addon
+    al_init_font_addon(); // initialize the font addon
+    al_init_ttf_addon();// initialize the ttf (True Type Font) addon
 //
-//    normalFont = al_load_ttf_font("GameFiles/fonts/kenvector_future_thin.ttf",50,0 );
+    normalFont = al_load_ttf_font("GameFiles/fonts/kenvector_future_thin.ttf",50,0 );
 //    cartoonFont = al_load_ttf_font("GameFiles/fonts/kenpixel_blocks.ttf",50,0 );
 //
 //    if (!normalFont || !cartoonFont)
@@ -99,56 +112,57 @@ int initAllegro()
     al_register_event_source(event_queue, al_get_keyboard_event_source());//registrar eventos del teclado
 
     al_init_timeout(&timeout, 0.06);
-    return 0;
 }
 
-string ingresarNombre()
-{
-    string name = "";
-    changeSizenormalFont(20);
-    while(1)
-    {
-        al_clear_to_color(al_map_rgb(0,0,0));
-        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
-        if(get_event && ev.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
-            if (teclaDownEvent(ALLEGRO_KEY_ESCAPE) || teclaDownEvent(ALLEGRO_KEY_ENTER))
-                break;
-            for(int x = 1; x <= 27; x++)//for para obtener los valores de todas las letras
-                if (teclaDownEvent(x))//comparamos que tecla está siendo presionada
-                {
-                    char e = x+64; //de ser así, sumarle al valor ASCII equivalente
-                    name.push_back(e);//concatenarla al nombre
-                }
-
-            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE) && name.size()>0)//comprar si vamos a borrar una letra
-            {
-                string temp = name;
-                name = "";
-                for(int x = 0; x<temp.size()-1; x++)
-                    name+=temp[x];
-            }
-        }
-        al_draw_bitmap(fondo,0,0,0);
-        al_draw_text(normalFont, al_map_rgb(102,204,0), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "INGRESE SU NOMBRE:");
-        al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());//dibuja el nombre
-        al_flip_display();//necesario para cambiar a la siguiente parte del buffer (que dibujará)
-    }
-    return name;
-}
+//string ingresarNombre()
+//{
+//    string name = "";
+//    while(1)
+//    {
+//        al_clear_to_color(al_map_rgb(0,0,0));
+//        bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
+//        if(get_event && ev.type == ALLEGRO_EVENT_KEY_DOWN)
+//        {
+//            if (teclaDownEvent(ALLEGRO_KEY_ESCAPE) || teclaDownEvent(ALLEGRO_KEY_ENTER))
+//                break;
+//            for(int x = 1; x <= 27; x++)//for para obtener los valores de todas las letras
+//                if (teclaDownEvent(x))//comparamos que tecla está siendo presionada
+//                {
+//                    char e = x+64; //de ser así, sumarle al valor ASCII equivalente
+//                    name.push_back(e);//concatenarla al nombre
+//                }
+//
+//            if (teclaDownEvent(ALLEGRO_KEY_BACKSPACE) && name.size()>0)//comprar si vamos a borrar una letra
+//            {
+//                string temp = name;
+//                name = "";
+//                for(int x = 0; x<temp.size()-1; x++)
+//                    name+=temp[x];
+//            }
+//        }
+//        al_draw_bitmap(fondo,0,0,0);
+//        al_draw_text(normalFont, al_map_rgb(102,204,0), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, "INGRESE SU NOMBRE:");
+//        al_draw_text(normalFont, al_map_rgb(255,255,255), width/2, height/2,ALLEGRO_ALIGN_CENTRE, name.c_str());//dibuja el nombre
+//        al_flip_display();//necesario para cambiar a la siguiente parte del buffer (que dibujará)
+//    }
+//    return name;
+//}
 
 int main()
 {
     initAllegro();
+    bitmap = al_load_bitmap("resources/characters/blueblob/down1.png");
     while(true){
         bool get_event = al_wait_for_event_until(event_queue, &ev, &timeout);
         if(get_event && ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
         {
             break;
         }
-
         al_clear_to_color(al_map_rgb(0,0,255));
+        al_draw_bitmap(bitmap, bitmapBox.x ,bitmapBox.y, 0);
         al_flip_display();
+
+        bitmapBox.x++;
     }
     return 0;
 }
