@@ -19,3 +19,22 @@
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
 
+1442102989 source:/home/jonathan/Desktop/Hackathon/main.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+	<Highscores.h>
+
+1442101424 /home/jonathan/Desktop/Hackathon/include/Highscores.h
+
+1442103139 source:/home/jonathan/Desktop/Hackathon/src/Highscores.cpp
+	<iostream>
+	"Highscores.h"
+	<map>
+	<utility>
+
