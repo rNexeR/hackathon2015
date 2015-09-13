@@ -71,6 +71,17 @@ void keydown(int keycode, bool* variable)
     }
 }
 
+bool press(int keycode)
+{
+    if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
+    {
+        if(ev.keyboard.keycode==keycode)
+        {
+            return true;
+        }
+        return false;
+    }
+}
 
 int initAllegro()
 {
