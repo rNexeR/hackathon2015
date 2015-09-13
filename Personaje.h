@@ -11,23 +11,26 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <vector>
+#include <map>
 
 //#include <Highscores.h>
 
 using namespace std;
 
-enum TIPO {RED, GREEN, BLUE};
+enum TIPO {REDI, RED, REDD, GREENI, GREEN, GREEND, BLUEI, BLUE, BLUED};
+
 
 class Personaje : public Entidad
 {
     public:
         int vida, tipoActual, frame, animacionActual;
-        vector<ALLEGRO_BITMAP*> skins[3];
+        vector<ALLEGRO_BITMAP*> skins[9];
         Personaje(ALLEGRO_EVENT *ev);
+//        map<string, char> controles;
         void keydown(int keycode, bool* variable);
         void act();
         void draw();
-        bool keyPressed[2];
+        bool keyPressed[5];
         virtual ~Personaje();
     protected:
     private:
