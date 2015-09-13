@@ -19,11 +19,14 @@
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
 
-<<<<<<< HEAD
+1442102989 D
+	<Highscores.h>
+
 1442115692 source:/home/alejo/Documents/hackathon2015/main.cpp
-=======
+
 1442102989 source:/home/jonathan/Desktop/Hackathon/main.cpp
->>>>>>> master
+
+1442103139 ter
 	<iostream>
 	<allegro5/allegro.h>
 	"allegro5/allegro_image.h"
@@ -32,9 +35,6 @@
 	<allegro5/allegro_acodec.h>
 	<allegro5/allegro_font.h>
 	<allegro5/allegro_ttf.h>
-<<<<<<< HEAD
-=======
-	<Highscores.h>
 
 1442101424 /home/jonathan/Desktop/Hackathon/include/Highscores.h
 
@@ -43,5 +43,22 @@
 	"Highscores.h"
 	<map>
 	<utility>
->>>>>>> master
+
+1442122480 source:/home/jonathan/Desktop/hackathon2015/main.cpp
+	<iostream>
+	<allegro5/allegro.h>
+	"allegro5/allegro_image.h"
+	"allegro5/allegro_native_dialog.h"
+	<allegro5/allegro_audio.h>
+	<allegro5/allegro_acodec.h>
+	<allegro5/allegro_font.h>
+	<allegro5/allegro_ttf.h>
+
+1442120498 source:/home/jonathan/Desktop/hackathon2015/src/Highscores.cpp
+	"Highscores.h"
+
+1442120510 /home/jonathan/Desktop/hackathon2015/include/Highscores.h
+	<map>
+	<utility>
+	<iostream>
 
