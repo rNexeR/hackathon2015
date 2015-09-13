@@ -12,6 +12,8 @@ using namespace std;
 
 ALLEGRO_DISPLAY *display = NULL;
 ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+ALLEGRO_MAP *mapa = al_open_map("/tmx", "lab.tmx");
+al_draw_map(mapa, 0, 0, 0); // (map, dx, dy, flags)
 
 //EVENTOS Y TIMERS
 ALLEGRO_EVENT ev;
