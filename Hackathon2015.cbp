@@ -32,13 +32,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Box.cpp" />
-		<Unit filename="Box.h" />
-		<Unit filename="Entidad.cpp" />
-		<Unit filename="Entidad.h" />
-		<Unit filename="Personaje.cpp" />
-		<Unit filename="Personaje.h" />
+		<Unit filename="coins.cpp" />
+		<Unit filename="coins.h" />
+		<Unit filename="lives.cpp" />
+		<Unit filename="lives.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="obstaculos.cpp" />
+		<Unit filename="obstaculos.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
