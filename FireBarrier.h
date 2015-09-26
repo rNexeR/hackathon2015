@@ -9,6 +9,9 @@ class FireBarrier : public Obstaculos
         FireBarrier();
         ALLEGRO_BITMAP* firebarrier;
         virtual ~FireBarrier();
+//        void act();
+//        void draw();
+//        double velo;
     protected:
     private:
 };

@@ -205,7 +205,7 @@ int main()
     btnplay = al_load_bitmap("resources/play.png");
     btnexit = al_load_bitmap("resources/exit.png");
 
-    int nivel = 3;
+    int nivel = 1;
 //    patitos = initEnemigos(nivel*5);
     patitos.insert(patitos.begin(), new Personaje(&ev));
     int cant = nivel*5;
@@ -217,7 +217,8 @@ int main()
         {
         case 1:
             patitos.insert(patitos.begin(), new Enemy());
-            (*(patitos.begin()))->cuadro->y= 1280 + (i*rand()%(2000));
+            (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
+            (*(patitos.begin()))->cuadro->x=(rand()%(768));
 
                   case 2:
 
