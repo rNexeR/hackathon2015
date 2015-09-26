@@ -4,7 +4,7 @@
 
 Clean::Clean()
 {
-    ene = false;
+    codigo = 0;
     clean = al_load_bitmap("resources/clean.png");
 
     cuadro->width = al_get_bitmap_width(clean);

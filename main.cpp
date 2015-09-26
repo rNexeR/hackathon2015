@@ -62,6 +62,8 @@ string currentuser="hola";
 int bg1=0, bg2=0;
 bool izq=false, der=false, splash1=true, splash2= false;
 
+bool collision(Entidad* e, Entidad* a);
+
 void keydown(int keycode, bool* variable)
 {
     if(ev.type == ALLEGRO_EVENT_KEY_DOWN)
@@ -190,12 +192,13 @@ string ingresarNombre()
 
 vector<Entidad* > initEnemigos(int cant);
 vector<Entidad* > patitos;
+Entidad* personaje;// = new Personaje(&ev);
 
 int main()
 {
     initAllegro();
 
-    //personaje = new Personaje(&ev);
+    personaje = new Personaje(&ev);
 //    A
     cout<<"llrego alo"<<endl;
     fondo = al_load_bitmap("resources/fondo-cielo.png");
@@ -207,7 +210,7 @@ int main()
 
     int nivel = 1;
 //    patitos = initEnemigos(nivel*5);
-    patitos.insert(patitos.begin(), new Personaje(&ev));
+    patitos.insert(patitos.begin(), personaje);
     int cant = nivel*5;
     for(int i = 0; i < cant; i++)
     {
@@ -296,6 +299,8 @@ int main()
             {
                 (*i)->act();
                 (*i)->draw();
+                if((*i) != personaje && collision((*i), personaje))
+                    cout<<"perdiste"<<endl;
 
 //            if((*patitos.end()-1)->cuadro->x > ((*i)->cuadro->x+(*i)->cuadro->width))
 //                cout<<"persdiste";
@@ -325,6 +330,20 @@ int main()
 
     }
     return 0;
+}
+
+bool collision(Entidad* e, Entidad* a)
+{
+    if(a->cuadro->x+a->cuadro->width < e->cuadro->x)
+        return false;
+    if(a->cuadro->x > e->cuadro->x+e->cuadro->width)
+        return false;
+    if(a->cuadro->y+a->cuadro->height < e->cuadro->y)
+        return false;
+    if(a->cuadro->y > e->cuadro->y+e->cuadro->height)
+        return false;
+
+    return true;
 }
 
 //vector<Entidad* > initEnemigos(int cant)

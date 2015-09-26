@@ -5,6 +5,8 @@ Personaje::Personaje(ALLEGRO_EVENT *ev)
     vida = 3;
     animacionActual = 0;
     velocity = 10;
+    cuadro->width = 65;
+    cuadro->height = 65;
 //
 //    cout<<ALLEGRO_KEY_Q<<endl;
 //    controles.insert("RED", ALLEGRO_KEY_Q);

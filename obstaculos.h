@@ -10,7 +10,7 @@ using namespace std;
 class Obstaculos : public Entidad
 {
     public:
-        bool ene;
+        int codigo;
         Obstaculos();
         virtual ~Obstaculos();
     protected:
