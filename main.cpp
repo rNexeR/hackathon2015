@@ -199,6 +199,7 @@ int main()
     initAllegro();
 
     personaje = new Personaje(&ev);
+    patitos.insert(patitos.begin(), personaje);
 //    A
     cout<<"llrego alo"<<endl;
     fondo = al_load_bitmap("resources/fondo-cielo.png");
@@ -209,27 +210,28 @@ int main()
     btnexit = al_load_bitmap("resources/exit.png");
 
     int nivel = 1;
+    bool lvlup = 1;
 //    patitos = initEnemigos(nivel*5);
-    patitos.insert(patitos.begin(), personaje);
-    int cant = nivel*5;
-    for(int i = 0; i < cant; i++)
-    {
-        int randy = 1;
-
-        switch (randy)
-        {
-        case 1:
-            patitos.insert(patitos.begin(), new Enemy());
-            (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
-            (*(patitos.begin()))->cuadro->x=(rand()%(768));
-
-                  case 2:
-
-                  case 3:
-            break;
-
-        }
-    }
+//    patitos.insert(patitos.begin(), personaje);
+//    int cant = nivel*5;
+//    for(int i = 0; i < cant; i++)
+//    {
+//        int randy = 1;
+//
+//        switch (randy)
+//        {
+//        case 1:
+//            patitos.insert(patitos.begin(), new Enemy());
+//            (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
+//            (*(patitos.begin()))->cuadro->x=(rand()%(768));
+//
+//                  case 2:
+//
+//                  case 3:
+//            break;
+//
+//        }
+//    }
 
 
 //    Highscores *high=new Highscores();
@@ -285,6 +287,31 @@ int main()
         else
         {
 
+        if(nivel == 1 && lvlup)
+        {
+//            patitos.insert(patitos.begin(), personaje);
+            int cant = nivel*5;
+            for(int i = 0; i < cant; i++)
+            {
+                int randy = 1;
+
+                switch (randy)
+                {
+                case 1:
+                    patitos.insert(patitos.begin(), new Enemy());
+                    (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
+                    (*(patitos.begin()))->cuadro->x=(rand()%(768));
+
+                          case 2:
+
+                          case 3:
+                    break;
+
+                }
+            }
+            lvlup = 0;
+        }
+
 //            cant = 0;
 
 //        al_clear_to_color(al_map_rgb(0,0,255));
@@ -311,6 +338,10 @@ int main()
 
             for(int x = 0; x < borrar.size(); x++){
                 patitos.erase(borrar[x]);
+            }
+            if(patitos.size() == 1)
+            {
+                lvlup = 1;
             }
 
 //        personaje->act();
