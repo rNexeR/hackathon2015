@@ -15,6 +15,7 @@
 #include "Personaje.h"
 #include "FloatingObs.h"
 #include "Enemy.h"
+#include <unistd.h>
 
 using namespace std;
 
@@ -187,7 +188,8 @@ string ingresarNombre()
     return name;
 }
 
-
+vector<Entidad* > initEnemigos(int cant);
+vector<Entidad* > patitos;
 
 int main()
 {
@@ -203,9 +205,10 @@ int main()
     btnplay = al_load_bitmap("resources/play.png");
     btnexit = al_load_bitmap("resources/exit.png");
 
-    vector<Entidad* > patitos;
+    int nivel = 3;
+//    patitos = initEnemigos(nivel*5);
     patitos.insert(patitos.begin(), new Personaje(&ev));
-    int cant = 5;
+    int cant = nivel*5;
     for(int i = 0; i < cant; i++)
     {
         int randy = 1;
@@ -214,11 +217,11 @@ int main()
         {
         case 1:
             patitos.insert(patitos.begin(), new Enemy());
-            (*(patitos.begin()))->cuadro->y= 1280 + (i*rand()%300);
+            (*(patitos.begin()))->cuadro->y= 1280 + (i*rand()%(2000));
 
-//                  case 2:
-//
-//                  case 3:
+                  case 2:
+
+                  case 3:
             break;
 
         }
@@ -293,9 +296,11 @@ int main()
                 (*i)->act();
                 (*i)->draw();
 
+//            if((*patitos.end()-1)->cuadro->x > ((*i)->cuadro->x+(*i)->cuadro->width))
+//                cout<<"persdiste";
+
                 if((*i)->cuadro->y < -100)
                     borrar.push_back(i);
-
             }
 
             for(int x = 0; x < borrar.size(); x++){
@@ -310,6 +315,7 @@ int main()
                 bg1=0;
             if(bg2<=-2560)
                 bg2=0;
+            //if(collision)
         }
 
 
@@ -319,3 +325,27 @@ int main()
     }
     return 0;
 }
+
+//vector<Entidad* > initEnemigos(int cant)
+//{
+//    vector<Entidad* > patitos;
+//    patitos.insert(patitos.begin(), new Personaje(&ev));
+//    for(int i = 0; i < cant; i++)
+//    {
+//        int randy = 1;
+//
+//        switch (randy)
+//        {
+//        case 1:
+//            patitos.insert(patitos.begin(), new Enemy());
+//            (*(patitos.begin()))->cuadro->y= 1280 + (i*rand()%(2000));
+//
+////                  case 2:
+////
+////                  case 3:
+//            break;
+//
+//        }
+//    }
+//    return patitos;
+//}

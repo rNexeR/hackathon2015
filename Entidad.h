@@ -9,6 +9,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <vector>
 //#include <Highscores.h>
 
 using namespace std;

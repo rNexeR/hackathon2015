@@ -29,11 +29,11 @@ Enemy::Enemy()
 void Enemy :: act()
 {
     cout<<cuadro->x<<" , "<<cuadro->y<<endl;
-    cuadro->y-=5;
+    cuadro->y-=3;
     cuadro->x+=velo;
     if(cuadro->x >= 768-cuadro->width)
         velo = -3;
-    else if (cuadro->x <= 0 - cuadro->width)
+    else if (cuadro->x <= 0)
         velo = 3;
 
 }
