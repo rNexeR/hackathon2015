@@ -7,6 +7,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_primitives.h>
 //#include <Highscores.h>
 #include "coins.h"
 #include "lives.h"
@@ -15,6 +16,7 @@
 #include "Personaje.h"
 #include "FloatingObs.h"
 #include "Enemy.h"
+#include "Box.h"
 
 using namespace std;
 
@@ -87,6 +89,11 @@ bool press(int keycode)
     }
 }
 
+//bool collision(int x, int y)
+//{
+//
+//}
+
 int initAllegro()
 {
     if(!al_init())
@@ -144,9 +151,12 @@ int initAllegro()
         return -1;
     }
 
+    al_install_mouse();
+
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
     al_register_event_source(event_queue, al_get_keyboard_event_source());//registrar eventos del teclado
+    al_register_event_source(event_queue, al_get_mouse_event_source());
 
     al_start_timer(timer);
 
@@ -189,9 +199,12 @@ string ingresarNombre()
 
 
 
+
 int main()
 {
     initAllegro();
+    ALLEGRO_COLOR lol = al_map_rgb(150,0,255);
+    int x=10, y=10;
 
     //personaje = new Personaje(&ev);
 //    A
@@ -260,6 +273,18 @@ int main()
                     splash1=false;
                     splash2=true;
                 }
+                else if(ev.mouse.button & 1)
+                {
+                    cout<<"click izq"<<endl;
+                    splash1=false;
+                    splash2=true;
+                }
+                else if(ev.mouse.button & 2)
+                {
+                    cout<<"click der"<<endl;
+                    splash1=false;
+                    splash2=true;
+                }
             }
             if(splash2)
             {
@@ -298,6 +323,8 @@ int main()
 
             }
 
+            al_draw_triangle(100, 100, 200, 200, 300, 300, lol, 50);
+
             for(int x = 0; x < borrar.size(); x++){
                 patitos.erase(borrar[x]);
             }
@@ -319,3 +346,9 @@ int main()
     }
     return 0;
 }
+
+//
+//bool collision()
+//{
+//    if ()
+//}
