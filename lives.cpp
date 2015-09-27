@@ -4,7 +4,7 @@
 
 Lives::Lives()
 {
-    ene = false;
+    codigo = 0;
     heart = al_load_bitmap("resources/heart.png");
 
     cuadro->width = al_get_bitmap_width(heart);

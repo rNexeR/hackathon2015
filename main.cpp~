@@ -17,6 +17,8 @@
 #include "FloatingObs.h"
 #include "Enemy.h"
 #include "Box.h"
+#include <unistd.h>
+
 
 using namespace std;
 
@@ -62,6 +64,8 @@ int width = 768, height = 1000, FPS = 30, seconds=1, timer2=0, moveSpeed=5,moveS
 string currentuser="hola";
 int bg1=0, bg2=0;
 bool izq=false, der=false, splash1=true, splash2= false;
+
+bool collision(Entidad* e, Entidad* a);
 
 void keydown(int keycode, bool* variable)
 {
@@ -197,7 +201,9 @@ string ingresarNombre()
     return name;
 }
 
-
+vector<Entidad* > initEnemigos(int cant);
+vector<Entidad* > patitos;
+Entidad* personaje;// = new Personaje(&ev);
 
 
 int main()
@@ -206,7 +212,8 @@ int main()
     ALLEGRO_COLOR lol = al_map_rgb(150,0,255);
     int x=10, y=10;
 
-    //personaje = new Personaje(&ev);
+    personaje = new Personaje(&ev);
+    patitos.insert(patitos.begin(), personaje);
 //    A
     cout<<"llrego alo"<<endl;
     fondo = al_load_bitmap("resources/fondo-cielo.png");
@@ -216,26 +223,29 @@ int main()
     btnplay = al_load_bitmap("resources/play.png");
     btnexit = al_load_bitmap("resources/exit.png");
 
-    vector<Entidad* > patitos;
-    patitos.insert(patitos.begin(), new Personaje(&ev));
-    int cant = 5;
-    for(int i = 0; i < cant; i++)
-    {
-        int randy = 1;
-
-        switch (randy)
-        {
-        case 1:
-            patitos.insert(patitos.begin(), new Enemy());
-            (*(patitos.begin()))->cuadro->y= 1280 + (i*rand()%300);
-
+    int nivel = 1;
+    bool lvlup = 1;
+//    patitos = initEnemigos(nivel*5);
+//    patitos.insert(patitos.begin(), personaje);
+//    int cant = nivel*5;
+//    for(int i = 0; i < cant; i++)
+//    {
+//        int randy = 1;
+//
+//        switch (randy)
+//        {
+//        case 1:
+//            patitos.insert(patitos.begin(), new Enemy());
+//            (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
+//            (*(patitos.begin()))->cuadro->x=(rand()%(768));
+//
 //                  case 2:
 //
 //                  case 3:
-            break;
-
-        }
-    }
+//            break;
+//
+//        }
+//    }
 
 
 //    Highscores *high=new Highscores();
@@ -303,6 +313,31 @@ int main()
         else
         {
 
+        if(nivel == 1 && lvlup)
+        {
+//            patitos.insert(patitos.begin(), personaje);
+            int cant = nivel*5;
+            for(int i = 0; i < cant; i++)
+            {
+                int randy = 1;
+
+                switch (randy)
+                {
+                case 1:
+                    patitos.insert(patitos.begin(), new Enemy());
+                    (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
+                    (*(patitos.begin()))->cuadro->x=(rand()%(768));
+
+                          case 2:
+
+                          case 3:
+                    break;
+
+                }
+            }
+            lvlup = 0;
+        }
+
 //            cant = 0;
 
 //        al_clear_to_color(al_map_rgb(0,0,255));
@@ -317,16 +352,24 @@ int main()
             {
                 (*i)->act();
                 (*i)->draw();
+                if((*i) != personaje && collision((*i), personaje))
+                    cout<<"perdiste"<<endl;
+
+//            if((*patitos.end()-1)->cuadro->x > ((*i)->cuadro->x+(*i)->cuadro->width))
+//                cout<<"persdiste";
 
                 if((*i)->cuadro->y < -100)
                     borrar.push_back(i);
-
             }
 
             al_draw_triangle(100, 100, 200, 200, 300, 300, lol, 50);
 
             for(int x = 0; x < borrar.size(); x++){
                 patitos.erase(borrar[x]);
+            }
+            if(patitos.size() == 1)
+            {
+                lvlup = 1;
             }
 
 //        personaje->act();
@@ -337,6 +380,7 @@ int main()
                 bg1=0;
             if(bg2<=-2560)
                 bg2=0;
+            //if(collision)
         }
 
 
@@ -347,8 +391,40 @@ int main()
     return 0;
 }
 
-//
-//bool collision()
+bool collision(Entidad* e, Entidad* a)
+{
+    if(a->cuadro->x+a->cuadro->width < e->cuadro->x)
+        return false;
+    if(a->cuadro->x > e->cuadro->x+e->cuadro->width)
+        return false;
+    if(a->cuadro->y+a->cuadro->height < e->cuadro->y)
+        return false;
+    if(a->cuadro->y > e->cuadro->y+e->cuadro->height)
+        return false;
+
+    return true;
+}
+
+//vector<Entidad* > initEnemigos(int cant)
 //{
-//    if ()
+//    vector<Entidad* > patitos;
+//    patitos.insert(patitos.begin(), new Personaje(&ev));
+//    for(int i = 0; i < cant; i++)
+//    {
+//        int randy = 1;
+//
+//        switch (randy)
+//        {
+//        case 1:
+//            patitos.insert(patitos.begin(), new Enemy());
+//            (*(patitos.begin()))->cuadro->y= 1280 + (i*rand()%(2000));
+//
+////                  case 2:
+////
+////                  case 3:
+//            break;
+//
+//        }
+//    }
+//    return patitos;
 //}

@@ -2,7 +2,7 @@
 
 Obstaculos::Obstaculos()
 {
-    ene = true;
+    codigo = 0;
 }
 
 Obstaculos::~Obstaculos()

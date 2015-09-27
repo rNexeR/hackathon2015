@@ -1,5 +1,6 @@
 #include "Entidad.h"
 
+
 Entidad::Entidad()
 {
     colisionado = 0;
