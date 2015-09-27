@@ -27,6 +27,8 @@ class Entidad
         float velocity;// = 1;
         virtual void act() = 0;
         virtual void draw() = 0;
+        int codigo;
+        int tipo;
         Entidad();
         virtual ~Entidad();
     protected:

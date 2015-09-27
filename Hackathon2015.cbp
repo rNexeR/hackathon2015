@@ -47,6 +47,8 @@
 		<Unit filename="KeypressEvent.h" />
 		<Unit filename="Personaje.cpp" />
 		<Unit filename="Personaje.h" />
+		<Unit filename="WaterBarrier.cpp" />
+		<Unit filename="WaterBarrier.h" />
 		<Unit filename="lives.cpp" />
 		<Unit filename="lives.h" />
 		<Unit filename="main.cpp" />

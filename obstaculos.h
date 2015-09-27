@@ -11,6 +11,7 @@ class Obstaculos : public Entidad
 {
     public:
         int codigo;
+        double velo;
         Obstaculos();
         virtual ~Obstaculos();
     protected:
