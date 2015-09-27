@@ -15,7 +15,9 @@
 #include "Personaje.h"
 #include "FloatingObs.h"
 #include "Enemy.h"
+#include "WaterBarrier.h"
 #include <unistd.h>
+#include <sstream>
 
 using namespace std;
 
@@ -211,6 +213,8 @@ int main()
 
     int nivel = 1;
     bool lvlup = 1;
+    ostringstream displayLvl;
+//    string displayLvl;
 //    patitos = initEnemigos(nivel*5);
 //    patitos.insert(patitos.begin(), personaje);
 //    int cant = nivel*5;
@@ -287,30 +291,37 @@ int main()
         else
         {
 
-        if(nivel == 1 && lvlup)
-        {
-//            patitos.insert(patitos.begin(), personaje);
-            int cant = nivel*5;
-            for(int i = 0; i < cant; i++)
+            if(lvlup)
             {
-                int randy = 1;
-
-                switch (randy)
+    //            patitos.insert(patitos.begin(), personaje);
+                int cant = nivel*3;
+                for(int i = 0; i < cant; i++)
                 {
-                case 1:
-                    patitos.insert(patitos.begin(), new Enemy());
-                    (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
-                    (*(patitos.begin()))->cuadro->x=(rand()%(768));
+                    int randy = rand()%1;
 
-                          case 2:
+                    switch (randy)
+                    {
+                        case 0:
+                            patitos.insert(patitos.begin(), new Enemy());
+                            (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
+                            (*(patitos.begin()))->cuadro->x=(rand()%(768));
+                            break;
 
-                          case 3:
-                    break;
+                        case 1:
+                            patitos.insert(patitos.begin(), new WaterBarrier());
+                            (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
 
+                        case 3:
+                        break;
+
+                    }
                 }
+                lvlup = 0;
+                displayLvl.str("");
+                displayLvl.clear();
+                displayLvl << "NIVEL: " << nivel;
+                nivel++;
             }
-            lvlup = 0;
-        }
 
 //            cant = 0;
 
@@ -327,7 +338,21 @@ int main()
                 (*i)->act();
                 (*i)->draw();
                 if((*i) != personaje && collision((*i), personaje))
-                    cout<<"perdiste"<<endl;
+                {
+//                    if((*i)->codigo == 3)
+//                    {
+//                     cout<<"11111111111111"<<endl;
+//                        if(!(personaje->tipo == BLUE || personaje->tipo == BLUED || personaje->tipo == BLUEI))
+//                            cout<<"perdiste"<<endl;
+//                    }
+////                    else
+////                         cout<<"perdiste"<<endl;
+
+                }
+//                 cout<<((*i)->codigo)<<endl;
+
+                if((*i)->cuadro->y>900)
+                    al_draw_text(normalFont, al_map_rgb(102,204,0), width/2, (height/2)-35,ALLEGRO_ALIGN_CENTER, displayLvl.str().c_str());
 
 //            if((*patitos.end()-1)->cuadro->x > ((*i)->cuadro->x+(*i)->cuadro->width))
 //                cout<<"persdiste";
@@ -340,9 +365,7 @@ int main()
                 patitos.erase(borrar[x]);
             }
             if(patitos.size() == 1)
-            {
                 lvlup = 1;
-            }
 
 //        personaje->act();
 //        personaje->draw();

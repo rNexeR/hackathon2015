@@ -14,9 +14,6 @@ Enemy::Enemy()
     cuadro->height = al_get_bitmap_height(enemy);
 
   //  cuadro->x = rand()%(720 - cuadro->width);
-
-
-
 //    frame=0;
 //    animacionactual = 0;
 //    enemy[0]=al_load_bitmap("resources/blobs/red1.png");

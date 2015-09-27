@@ -14,7 +14,6 @@ class Enemy : public Obstaculos
         void act();
         void draw();
         Enemy();
-        double velo;
         virtual ~Enemy();
     protected:
     private:
