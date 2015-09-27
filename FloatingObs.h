@@ -7,6 +7,9 @@ class FloatingObs : public Obstaculos
     public:
         FloatingObs();
         ALLEGRO_BITMAP *obstacle;
+        void act();
+        void draw();
+        double velo;
         virtual ~FloatingObs();
     protected:
     private:

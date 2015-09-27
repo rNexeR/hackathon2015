@@ -7,7 +7,6 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_primitives.h>
 //#include <Highscores.h>
 #include "coins.h"
 #include "lives.h"
@@ -16,9 +15,7 @@
 #include "Personaje.h"
 #include "FloatingObs.h"
 #include "Enemy.h"
-#include "Box.h"
 #include <unistd.h>
-
 
 using namespace std;
 
@@ -33,14 +30,20 @@ ALLEGRO_TIMEOUT timeout;
 ALLEGRO_TIMER *timer = NULL;
 
 //Elementos Generales
-ALLEGRO_BITMAP  *logo   = NULL;
-ALLEGRO_BITMAP  *instru   = NULL;
-ALLEGRO_BITMAP  *fondo   = NULL;
-ALLEGRO_BITMAP  *pausa   = NULL;
-ALLEGRO_BITMAP  *splash   = NULL;
-ALLEGRO_BITMAP  *menu   = NULL;
-ALLEGRO_BITMAP  *btnplay   = NULL;
-ALLEGRO_BITMAP  *btnexit   = NULL;
+ALLEGRO_BITMAP *logo   = NULL;
+ALLEGRO_BITMAP *instru   = NULL;
+ALLEGRO_BITMAP *fondo   = NULL;
+ALLEGRO_BITMAP *pausa   = NULL;
+ALLEGRO_BITMAP *splash   = NULL;
+ALLEGRO_BITMAP *menu   = NULL;
+ALLEGRO_BITMAP *splashScores = NULL;
+ALLEGRO_BITMAP *btnplay   = NULL;
+ALLEGRO_BITMAP *btnexit   = NULL;
+ALLEGRO_BITMAP *btninstru   = NULL;
+ALLEGRO_BITMAP *btnplay1   = NULL;
+ALLEGRO_BITMAP *btnexit1   = NULL;
+ALLEGRO_BITMAP *btninstru1   = NULL;
+
 
 ALLEGRO_SAMPLE *music = NULL;
 ALLEGRO_SAMPLE_ID imusic;
@@ -50,6 +53,7 @@ ALLEGRO_SAMPLE *game = NULL;
 ALLEGRO_SAMPLE_ID igame;
 
 ALLEGRO_KEYBOARD_STATE keystate;
+ALLEGRO_MOUSE_STATE state;
 
 //ALLEGRO_
 
@@ -63,9 +67,23 @@ ALLEGRO_FONT *normalFont = NULL;
 int width = 768, height = 1000, FPS = 30, seconds=1, timer2=0, moveSpeed=5,moveSpeedB1=1, moveSpeedB2=3;
 string currentuser="hola";
 int bg1=0, bg2=0;
-bool izq=false, der=false, splash1=true, splash2= false;
+bool izq=false, der=false, splash1=true, splash2= false, splashscores = true, juego = true;
 
-bool collision(Entidad* e, Entidad* a);
+//bool collision(Entidad* e, Entidad* a);
+
+bool collision(Entidad* e, Entidad* a)
+{
+    if(a->cuadro->x+a->cuadro->width < e->cuadro->x)
+        return false;
+    if(a->cuadro->x > e->cuadro->x+e->cuadro->width)
+        return false;
+    if(a->cuadro->y+a->cuadro->height < e->cuadro->y)
+        return false;
+    if(a->cuadro->y > e->cuadro->y+e->cuadro->height)
+        return false;
+
+    return true;
+}
 
 void keydown(int keycode, bool* variable)
 {
@@ -93,10 +111,13 @@ bool press(int keycode)
     }
 }
 
-//bool collision(int x, int y)
-//{
-//
-//}
+void showRanking()
+{
+    //al_draw_text(normalFont, al_map_rgb(102,204,0), width/2, (height-900),ALLEGRO_ALIGN_CENTER, "RANKING");
+    ALLEGRO_BITMAP* splashScores = al_load_bitmap("resources/scoressplash.png");
+    al_draw_bitmap(splashScores, 0, 0, 100);
+    al_flip_display();
+}
 
 int initAllegro()
 {
@@ -155,8 +176,6 @@ int initAllegro()
         return -1;
     }
 
-    al_install_mouse();
-
     al_register_event_source(event_queue, al_get_display_event_source(display));//registrar eventos del display
     al_register_event_source(event_queue, al_get_timer_event_source(timer));//registrar eventos del timer
     al_register_event_source(event_queue, al_get_keyboard_event_source());//registrar eventos del teclado
@@ -201,27 +220,44 @@ string ingresarNombre()
     return name;
 }
 
-vector<Entidad* > initEnemigos(int cant);
+//vector<Entidad* > initEnemigos(int cant);
 vector<Entidad* > patitos;
+//vector<Entidad* > floatingobs;
 Entidad* personaje;// = new Personaje(&ev);
+//Entidad* floatingobsEntidad;
 
+void movingBgs()
+{
+    bg1-=moveSpeedB1;
+    bg2-=moveSpeedB2;
+    if(bg1<=-2560)
+        bg1=0;
+    if(bg2<=-2560)
+        bg2=0;
+}
 
 int main()
 {
     initAllegro();
-    ALLEGRO_COLOR lol = al_map_rgb(150,0,255);
-    int x=10, y=10;
 
     personaje = new Personaje(&ev);
+//    floatingobsEntidad = new FloatingObs(&ev);
     patitos.insert(patitos.begin(), personaje);
+//    floatingobs.insert(floatingobs.begin(), floatingobsEntidad);
 //    A
-    cout<<"llrego alo"<<endl;
+    cout<<"llego aqui"<<endl;
     fondo = al_load_bitmap("resources/fondo-cielo.png");
     nubes = al_load_bitmap("resources/nubes.png");
     splash = al_load_bitmap("resources/splash.png");
     menu = al_load_bitmap("resources/menu.png");
+    splashScores = al_load_bitmap("resources/scoressplash.png");
+    instru = al_load_bitmap("resources/instructions.png");
     btnplay = al_load_bitmap("resources/play.png");
     btnexit = al_load_bitmap("resources/exit.png");
+    btninstru = al_load_bitmap("resources/instructions.png");
+    btnplay1 = al_load_bitmap("resources/play1.png");
+    btnexit1 = al_load_bitmap("resources/exit1.png");
+    btninstru1 = al_load_bitmap("resources/instructions1.png");
 
     int nivel = 1;
     bool lvlup = 1;
@@ -283,24 +319,14 @@ int main()
                     splash1=false;
                     splash2=true;
                 }
-                else if(ev.mouse.button & 1)
-                {
-                    cout<<"click izq"<<endl;
-                    splash1=false;
-                    splash2=true;
-                }
-                else if(ev.mouse.button & 2)
-                {
-                    cout<<"click der"<<endl;
-                    splash1=false;
-                    splash2=true;
-                }
             }
             if(splash2)
             {
                 al_draw_bitmap(menu, 0, 0 ,100);
                 al_draw_bitmap(btnplay, 190, 500, 100);
-                al_draw_bitmap(btnexit, 215, 650, 100);
+                al_draw_bitmap(btninstru, 160, 650, 100);
+                al_draw_bitmap(btnexit, 215, 767, 100);
+
                 if(ev.keyboard.keycode == ALLEGRO_KEY_ENTER)
                 {
                     currentuser = ingresarNombre();
@@ -312,34 +338,31 @@ int main()
         }
         else
         {
-
-        if(nivel == 1 && lvlup)
-        {
-//            patitos.insert(patitos.begin(), personaje);
-            int cant = nivel*5;
-            for(int i = 0; i < cant; i++)
+            if(nivel == 1 && lvlup)
             {
-                int randy = 1;
-
-                switch (randy)
+                int cant = nivel*5;
+                for(int i = 0; i < cant; i++)
                 {
-                case 1:
-                    patitos.insert(patitos.begin(), new Enemy());
-                    (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
-                    (*(patitos.begin()))->cuadro->x=(rand()%(768));
+                    int randy = 1;
+                    switch (randy)
+                    {
+                    case 1:
+                        patitos.insert(patitos.begin(), new Enemy());
+                        (*(patitos.begin()))->cuadro->y= 1280 + (i*200+rand()%(200));
+                        (*(patitos.begin()))->cuadro->x=(rand()%(768));
+//                        patitos.insert(patitos.begin(), new FloatingObs());
+//                        (*(patitos.begin()))->cuadro->y=1280+(i*100+rand()%(100));;
+//                        (*(patitos.begin()))->cuadro->x=300;
+                    case 2:
 
-                          case 2:
+                    case 3:
 
-                          case 3:
                     break;
-
+                    }
                 }
+                lvlup = 0;
             }
-            lvlup = 0;
-        }
-
 //            cant = 0;
-
 //        al_clear_to_color(al_map_rgb(0,0,255));
             al_draw_bitmap(fondo, 0, bg1, 0);
             al_draw_bitmap(fondo, 0, bg1+2560, 0);
@@ -347,62 +370,59 @@ int main()
             al_draw_bitmap(nubes, 0, bg2+2560, 0);
 
             vector<vector<Entidad*>::iterator> borrar;
-
+            //int collisionCount;
             for(vector<Entidad*>::iterator i = patitos.begin(); i != patitos.end(); i++)
             {
                 (*i)->act();
                 (*i)->draw();
-                if((*i) != personaje && collision((*i), personaje))
-                    cout<<"perdiste"<<endl;
 
+                if((*i) != personaje && collision((*i), personaje))
+                {
+                    cout<<"perdiste"<<endl;
+                    //collisionCount++;
+                }
 //            if((*patitos.end()-1)->cuadro->x > ((*i)->cuadro->x+(*i)->cuadro->width))
 //                cout<<"persdiste";
-
                 if((*i)->cuadro->y < -100)
                     borrar.push_back(i);
             }
 
-            al_draw_triangle(100, 100, 200, 200, 300, 300, lol, 50);
-
-            for(int x = 0; x < borrar.size(); x++){
+            for(int x = 0; x < borrar.size(); x++)
+            {
                 patitos.erase(borrar[x]);
             }
+
             if(patitos.size() == 1)
             {
                 lvlup = 1;
             }
 
+//            if(collisionCount == 5)
+//            {
+//                showRanking();
+//            }
+
 //        personaje->act();
 //        personaje->draw();
-            bg1-=moveSpeedB1;
-            bg2-=moveSpeedB2;
-            if(bg1<=-2560)
-                bg1=0;
-            if(bg2<=-2560)
-                bg2=0;
-            //if(collision)
+            movingBgs();
+//            if(ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE)
+//            {
+//                al_draw_bitmap(splashScores, 0, 0, 100);
+//                //al_flip_display();
+//                cout<<"drawing scores"<<endl;
+//            }
         }
 
-
-
+//        if(splashscores)
+//        {
+//            if(ev.keyboard.keycode == ALLEGRO_KEY_BACKSPACE)
+//
+//        }
+        //cout<<"impr scorse1"<<endl;
         al_flip_display();
-
+        //cout<<"impr scorse2"<<endl;
     }
     return 0;
-}
-
-bool collision(Entidad* e, Entidad* a)
-{
-    if(a->cuadro->x+a->cuadro->width < e->cuadro->x)
-        return false;
-    if(a->cuadro->x > e->cuadro->x+e->cuadro->width)
-        return false;
-    if(a->cuadro->y+a->cuadro->height < e->cuadro->y)
-        return false;
-    if(a->cuadro->y > e->cuadro->y+e->cuadro->height)
-        return false;
-
-    return true;
 }
 
 //vector<Entidad* > initEnemigos(int cant)
@@ -428,3 +448,4 @@ bool collision(Entidad* e, Entidad* a)
 //    }
 //    return patitos;
 //}
+
